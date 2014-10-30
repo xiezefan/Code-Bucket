@@ -1,0 +1,41 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity" >
+
+    <item
+        android:id="@+id/action_search"
+        android:actionViewClass="android.widget.SearchView"
+        android:icon="@drawable/actionbar_search_icon"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/action_search"/>
+
+    <item
+        android:id="@+id/action_plus"
+        android:actionProviderClass="org.easyim.wechatdemo.app.PlusActionProvider"
+        android:icon="@drawable/actionbar_add_icon"
+        android:showAsAction="ifRoom"
+        android:title="@string/action_more"/>
+
+    <item android:id="@+id/action_album"
+          android:icon="@drawable/ofm_photo_icon"
+          android:title="@string/action_photo"/>
+
+    <item android:id="@+id/action_collection"
+          android:icon="@drawable/ofm_photo_icon"
+          android:title="@string/action_collection"/>
+
+    <item android:id="@+id/action_card"
+          android:icon="@drawable/ofm_photo_icon"
+          android:title="@string/action_card"/>
+
+    <item android:id="@+id/action_settings"
+          android:icon="@drawable/actionbar_more_icon"
+          android:title="@string/action_settings"/>
+
+    <item android:id="@+id/action_feed"
+          android:icon="@drawable/ofm_photo_icon"
+          android:title="@string/action_feed"/>
+
+
+
+</menu>
