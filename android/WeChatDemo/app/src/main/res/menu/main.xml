@@ -21,19 +21,19 @@
           android:title="@string/action_photo"/>
 
     <item android:id="@+id/action_collection"
-          android:icon="@drawable/ofm_photo_icon"
+          android:icon="@drawable/ofm_collect_icon"
           android:title="@string/action_collection"/>
 
     <item android:id="@+id/action_card"
-          android:icon="@drawable/ofm_photo_icon"
+          android:icon="@drawable/ofm_card_icon"
           android:title="@string/action_card"/>
 
     <item android:id="@+id/action_settings"
-          android:icon="@drawable/actionbar_more_icon"
+          android:icon="@drawable/ofm_setting_icon"
           android:title="@string/action_settings"/>
 
     <item android:id="@+id/action_feed"
-          android:icon="@drawable/ofm_photo_icon"
+          android:icon="@drawable/ofm_feedback_icon"
           android:title="@string/action_feed"/>
 
 
