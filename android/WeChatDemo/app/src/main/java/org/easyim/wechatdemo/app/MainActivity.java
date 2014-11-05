@@ -61,7 +61,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
-        private final String[] titles = {"聊天", "发现", "通讯录"};
+        private final String[] titles = {"聊天", "通讯录", "发现"};
 
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import com.hb.views.PinnedSectionListView;
 
 /**
  * Created by xiezefan-pc on 2014/11/1.
@@ -17,18 +18,11 @@ import android.widget.TextView;
 public class ContactsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        FrameLayout fl = new FrameLayout(getActivity());
-        fl.setLayoutParams(params);
-        DisplayMetrics dm = getResources().getDisplayMetrics();
-        final int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 8, dm);
-        TextView v = new TextView(getActivity());
-        params.setMargins(margin, margin, margin, margin);
-        v.setLayoutParams(params);
-        v.setGravity(Gravity.CENTER);
-        v.setText("好友界面");
-        v.setTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 12, dm));
-        fl.addView(v);
-        return fl;
+        View currentView = inflater.inflate(R.layout.contacts_fragment, container, false);
+        PinnedSectionListView listView = (PinnedSectionListView) currentView.findViewById(R.id.list);
+        listView.setAdapter(new ContactListAdapter(getActivity()));
+        return inflater.inflate(R.layout.contacts_fragment, container, false);
     }
+
+
 }
