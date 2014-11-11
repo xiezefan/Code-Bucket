@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiezefan.demo.mybatis.UserDao">
+
+    <insert id="save">
+      insert into t_user(id, username) values(#{id}, #{username});
+    </insert>
+
+    <select id="_findById" resultMap="UserResultMap">
+        select
+          U.id as id,
+          U.username as username,
+          B.id as b_id,
+          B.name as b_name,
+          B.owner_id as b_owner_id
+        from
+          t_user U
+        left outer join
+          t_book B
+        on
+          B.owner_id = U.id
+        where
+          U.id=#{id};
+
+    </select>
+
+    <select id="findById" resultMap="UserResultMap2">
+        select * from t_user where id=#{id};
+    </select>
+
+
+
+    <resultMap id="UserResultMap" type="com.xiezefan.demo.mybatis.User" >
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <collection property="books" ofType="com.xiezefan.demo.mybatis.Book" columnPrefix="b_">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="owner_id" column="owner_id"/>
+        </collection>
+    </resultMap>
+
+    <resultMap id="UserResultMap2" type="com.xiezefan.demo.mybatis.User" >
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+
+        <collection property="books"
+                    javaType="ArrayList"
+                    column="id"
+                    ofType="com.xiezefan.demo.mybatis.Book"
+                    select="findBooks"/>
+    </resultMap>
+
+    <select id="findBooks" resultType="com.xiezefan.demo.mybatis.User">
+        select * from t_book where owner_id=#{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiezefan.demo.mybatis.BookDao">
+
+    <insert id="save">
+        insert into t_book(id, name, owner_id) values(#{id}, #{name}, #{owner_id})
+    </insert>
+
+    <select id="findByOwnerId" resultMap="BookMapperResult">
+        select * from t_book where owner_id=#{id}
+    </select>
+
+    <resultMap id="BookMapperResult" type="com.xiezefan.demo.mybatis.Book">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiezefan.demo.mybatis.CarDao">
+
+    <insert id="save">
+        insert into t_car(id, name, owner_id) values(#{id}, #{name}, #{owner.id})
+    </insert>
+
+    <select id="findById" resultMap="CarMapperResult">
+        select
+          C.id as c_id,
+          C.name as c_name,
+          U.id as u_id,
+          U.username as u_username
+        from
+          t_car C,
+          t_user U
+        where
+          C.id=#{id} and C.owner_id = U.id;
+    </select>
+
+    <resultMap id="CarMapperResult" type="com.xiezefan.demo.mybatis.Car">
+        <id property="id" column="c_id"/>
+        <result property="name" column="c_name"/>
+        <association property="owner" resultMap="com.xiezefan.demo.mybatis.UserDao.UserResultMap" columnPrefix="u_"/>
+
+    </resultMap>
+
+</mapper>
