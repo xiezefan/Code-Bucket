@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +17,13 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.ikimuhendis.ldrawer.ActionBarDrawerToggle;
 import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 
 public class MainActivity extends Activity {
+    private static final String Tag = MainActivity.class.getSimpleName();
     // 侧滑菜单
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -28,6 +33,9 @@ public class MainActivity extends Activity {
     private DrawerArrowDrawable drawerArrow;
 
     private Context mContext;
+
+    // 下拉刷新Layout
+    private PullToRefreshLayout mPullToRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +50,20 @@ public class MainActivity extends Activity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.navdrawer);
+        mPullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.ptr_layout);
 
+        ActionBarPullToRefresh.from(this)
+                // Mark All Children as pullable
+                .allChildrenArePullable()
+                        // Set a OnRefreshListener
+                .listener(new OnRefreshListener() {
+                    @Override
+                    public void onRefreshStarted(View view) {
+                        Log.d(Tag, "[onCreate] on refresh started execute");
+                    }
+                })
+                // Finally commit the setup to our PullToRefreshLayout
+                .setup(mPullToRefreshLayout);
 
         drawerArrow = new DrawerArrowDrawable(this) {
             @Override
