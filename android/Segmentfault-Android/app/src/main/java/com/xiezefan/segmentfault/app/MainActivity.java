@@ -37,6 +37,8 @@ public class MainActivity extends Activity {
     // 下拉刷新Layout
     private PullToRefreshLayout mPullToRefreshLayout;
 
+    private ListView mArticleList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class MainActivity extends Activity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.navdrawer);
         mPullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.ptr_layout);
+        mArticleList = (ListView) findViewById(R.id.article_list);
 
         ActionBarPullToRefresh.from(this)
                 // Mark All Children as pullable
@@ -59,9 +62,11 @@ public class MainActivity extends Activity {
                 .listener(new OnRefreshListener() {
                     @Override
                     public void onRefreshStarted(View view) {
+
                         Log.d(Tag, "[onCreate] on refresh started execute");
                     }
                 })
+
                 // Finally commit the setup to our PullToRefreshLayout
                 .setup(mPullToRefreshLayout);
 
@@ -109,6 +114,12 @@ public class MainActivity extends Activity {
                 Toast.makeText(mContext, values[position], Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        ArrayAdapter<String> articleAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+        mArticleList.setAdapter(articleAdapter);
 
 
     }
