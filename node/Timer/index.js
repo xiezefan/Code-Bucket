@@ -7,8 +7,17 @@ var agenda = new Agenda({db: { address: 'localhost:27017/agenda-example'}})
 
 app.use('/agenda-ui', agendaUI(agenda, {poll: 1000}));
 
-app.set('port', process.env.PORT || 3000);
-
-var server = app.listen(app.get('port'), function() {
-    console.log('Express server listening on port ' + server.address().port);
+agenda.define('job_test1', function(job, done) {
+    console.log("EXECUTE:" + JSON.stringify(job));
+    done();
 });
+
+agenda.every('*/10 * * * * * * *', 'job_test1');
+
+
+agenda.start();
+
+app.listen(3000);
+app.set('port', process.env.PORT || 3000);
+console.log('Express server listening on port 3000');
+
