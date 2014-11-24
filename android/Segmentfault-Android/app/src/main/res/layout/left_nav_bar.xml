@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_gravity="start"
+        android:id="@+id/left_nav_bar"
+        android:orientation="vertical"
+        android:layout_width="@dimen/left_nav_bar_width"
+        android:background="@color/left_nav_bar_background"
+        android:layout_height="match_parent">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:gravity="center_vertical">
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp">
+            <TextView
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/white"
+                    android:textSize="16dp"
+                    android:text="Hello, 最美的陌生人"/>
+            <TextView
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="旅途上有你，我很开心！"/>
+
+        </LinearLayout>
+
+        <com.makeramen.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/default_avatar"
+                android:scaleType="fitCenter"
+
+                app:riv_corner_radius="20dip"
+                app:riv_border_width="2dip"
+                app:riv_border_color="#fff"
+                app:riv_mutate_background="true"
+                app:riv_tile_mode="repeat"
+                app:riv_oval="true" />
+
+    </RelativeLayout>
+
+    <ListView
+            android:id="@+id/left_bar_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:choiceMode="singleChoice"
+            android:drawSelectorOnTop="false">
+
+    </ListView>
+
+</LinearLayout>

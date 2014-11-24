@@ -10,6 +10,7 @@
         <item name="android:background">@color/actionbar_color</item>
         <item name="android:icon">@android:color/transparent</item>
         <item name="android:titleTextStyle">@style/ActionBar.TitleText</item>
+        <item name="android:homeAsUpIndicator">@drawable/back</item>
     </style>
 
     <style name="ActionBar.TitleText" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">

@@ -27,7 +27,9 @@
         </uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout>
 
         <!-- The navigation drawer -->
-        <ListView
+        <include layout="@layout/left_nav_bar"/>
+
+        <!--<ListView
                 android:id="@+id/navdrawer"
                 android:layout_width="@dimen/navdrawer_width"
                 android:layout_height="match_parent"
@@ -37,7 +39,7 @@
                 android:divider="@android:color/transparent"
                 android:dividerHeight="0dp"
                 android:drawSelectorOnTop="false">
-        </ListView>
+        </ListView>-->
 
     </android.support.v4.widget.DrawerLayout>
 

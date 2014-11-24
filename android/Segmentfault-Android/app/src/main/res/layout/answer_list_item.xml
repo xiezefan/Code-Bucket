@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:layout_height="200dp"
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+        <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/default_avatar"/>
+        <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:background="@color/problem_vote_background"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="789"/>
+
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:text="谢泽帆"
+                android:layout_marginBottom="5dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:text="提问题和回答问题就是不平等的，这个事情上就别求平等。在任何地方，产生高质量答案的人永远是稀缺的，自然要照顾这个人群。强调一点，人格上大家是平等的。"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="actionbar_color">#bf360c</color>
+    <color name="actionbar_color">#009a61</color>
     <color name="drawer_arrow_second_color">#303f9f</color>
     <color name="ldrawer_color">#FFFFFF</color>
+
+    <color name="green">#009a61</color>
+    <color name="red">#CC0000</color>
+    <color name="gray">#999</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="problem_list_tag_background">#E7F2ED</color>
+    <color name="problem_list_tag_color">#017e66</color>
+
+    <color name="left_nav_bar_background">#45b97c</color>
+
+    <color name="divider">#999999</color>
+
+    <color name="problem_page_tag_background">#E7F2ED</color>
+    <color name="problem_page_tag_color">#017e66</color>
+    <color name="problem_follow_button_background">#009a61</color>
+    <color name="problem_vote_background">#5BB2DF</color>
 </resources>
