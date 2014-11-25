@@ -16,6 +16,7 @@
     "agenda":"*",
     "agenda-ui":"*",
     "request":"*",
-    "log4js":"*"
+    "bunyan":"*",
+    "mongoose":"~3.8.19"
   }
 }

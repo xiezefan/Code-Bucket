@@ -15,9 +15,13 @@ var config = {
         defaultLockLifetime: 10000
     },
     requestConfig : {
-        readTimeout : 30,
+        readTimeout : 300000,
         tempAppKey : 'jzkmrgnfudihwopxyasvcqbe',
         tempMasterSecret : 'lukvmhdsxrnbiyqzcgjtwpea'
+    },
+    logConfig : {
+        // 日志保存路径
+        logSavePath : '/home/xiezefan-pc/logs/timing-task-server.log'
     }
 };
 
