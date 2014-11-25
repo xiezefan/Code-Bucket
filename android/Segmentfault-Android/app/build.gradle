@@ -35,4 +35,5 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.ikimuhendis:ldrawer:0.1'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
+    compile 'com.makeramen:roundedimageview:1.5.0'
 }

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+    <LinearLayout
+            android:id="@+id/p_status"
+            android:orientation="vertical"
+            android:layout_width="45dp"
+            android:layout_height="wrap_content"
+            android:background="@color/green">
+        <TextView
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:text="70"/>
+        <TextView
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="赞同"/>
+
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/p_main"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp">
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/p_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:layout_marginRight="10dp"
+                    android:text="谢泽帆"/>
+            <TextView
+                    android:id="@+id/p_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:text="7分钟前回复"/>
+        </LinearLayout>
+        <TextView
+                android:id="@+id/p_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="技术问答社区中回答的艺术？"/>
+        <LinearLayout
+                android:id="@+id/p_tag"
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/problem_list_tag_background"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/problem_list_tag_color"
+                    android:text="javascript"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/problem_list_tag_background"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/problem_list_tag_color"
+                    android:text="python"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/problem_list_tag_background"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/problem_list_tag_color"
+                    android:text="ajax"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

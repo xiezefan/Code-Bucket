@@ -4,19 +4,16 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.*;
 import com.ikimuhendis.ldrawer.ActionBarDrawerToggle;
 import com.ikimuhendis.ldrawer.DrawerArrowDrawable;
+import com.xiezefan.segmentfault.app.adapter.ProblemListAdapter;
 import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
 import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
 import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
@@ -26,7 +23,7 @@ public class MainActivity extends Activity {
     private static final String Tag = MainActivity.class.getSimpleName();
     // 侧滑菜单
     private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+    //private ListView mDrawerList;
     // 菜单按钮
     private ActionBarDrawerToggle mDrawerToggle;
     // 菜单监听器
@@ -37,7 +34,14 @@ public class MainActivity extends Activity {
     // 下拉刷新Layout
     private PullToRefreshLayout mPullToRefreshLayout;
 
-    private ListView mArticleList;
+    private ListView mProblemList;
+
+    private LinearLayout mLeftBar;
+    private ListView mLeftBarMenu;
+    //private RoundedImageView mBarAvatar;
+
+    public MainActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +55,11 @@ public class MainActivity extends Activity {
         ab.setHomeButtonEnabled(true);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.navdrawer);
+        //mDrawerList = (ListView) findViewById(R.id.navdrawer);
         mPullToRefreshLayout = (PullToRefreshLayout) findViewById(R.id.ptr_layout);
-        mArticleList = (ListView) findViewById(R.id.article_list);
+        mProblemList = (ListView) findViewById(R.id.article_list);
+        mLeftBar = (LinearLayout) findViewById(R.id.left_nav_bar);
+        mLeftBarMenu = (ListView) findViewById(R.id.left_bar_menu);
 
         ActionBarPullToRefresh.from(this)
                 // Mark All Children as pullable
@@ -106,20 +112,34 @@ public class MainActivity extends Activity {
         // 左滑菜单列表
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, values);
-        mDrawerList.setAdapter(adapter);
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mLeftBarMenu.setAdapter(adapter);
+        mLeftBarMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 Toast.makeText(mContext, values[position], Toast.LENGTH_SHORT).show();
             }
         });
+        //mDrawerList.setAdapter(adapter);
+        /*mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(mContext, values[position], Toast.LENGTH_SHORT).show();
+            }
+        });*/
 
 
-        ArrayAdapter<String> articleAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
-        mArticleList.setAdapter(articleAdapter);
+        mProblemList.setAdapter(new ProblemListAdapter(mContext));
+        mProblemList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, ProblemActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
@@ -138,10 +158,10 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         if (item.getItemId() == android.R.id.home) {
-            if (mDrawerLayout.isDrawerOpen(mDrawerList)) {
-                mDrawerLayout.closeDrawer(mDrawerList);
+            if (mDrawerLayout.isDrawerOpen(mLeftBar)) {
+                mDrawerLayout.closeDrawer(mLeftBar);
             } else {
-                mDrawerLayout.openDrawer(mDrawerList);
+                mDrawerLayout.openDrawer(mLeftBar);
             }
         }
         return super.onOptionsItemSelected(item);
