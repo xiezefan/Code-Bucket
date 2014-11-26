@@ -11,7 +11,7 @@ module.exports = function(agenda) {
     });
 
     var _httpPost = function(url, notify_id, body, auth, times, maxTryTimes, callback) {
-        console.log('HTTP GET - [id:%s, url:%s, times:%s/%s]', notify_id, url, times, maxTryTimes);
+        Log.info('HTTP GET - [id:%s, url:%s, times:%s/%s]', notify_id, url, times, maxTryTimes);
         var headers = {
             'User-Agent' : 'Timing Task Server',
             'Connection' : 'Keep-Alive',
