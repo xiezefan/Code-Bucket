@@ -4,7 +4,7 @@ var config = {
     agendaConfig : {
         // mongodb 配置
         db: {
-            address: 'localhost:27017/agenda-example',
+            address: '127.0.0.1:27017/agenda-example',
             collection: 'notifyJobs'
         },
         // 最大同时执行任务
@@ -16,12 +16,16 @@ var config = {
     },
     requestConfig : {
         readTimeout : 300000,
+        retryTimes : 3,
         tempAppKey : 'jzkmrgnfudihwopxyasvcqbe',
         tempMasterSecret : 'lukvmhdsxrnbiyqzcgjtwpea'
     },
     logConfig : {
         // 日志保存路径
-        logSavePath : '/home/xiezefan-pc/logs/timing-task-server.log'
+        logSavePath : '/home/xiezefan-pc/code/xiezefan/Code-Bucket/node/TimingTaskServer/logs/timing-task-server.log'
+    },
+    serverConfig : {
+        port : '3000'
     }
 };
 

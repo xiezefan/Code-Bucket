@@ -1,24 +1,60 @@
 var Request = require('request'),
     Config = require('../config'),
-    Log = require('../log')
+    Log = require('../log'),
+    Notify = require('./models/Notify'),
+    Tool = require('../common/ToolUtil.js');
 
 
 module.exports = function(agenda) {
 
     agenda.define('http-notify', function(job, done) {
         // TODO do something
+        var arr = {
+            title : "",
+            notify_url : "",
+            cron : "",
+            params : {
+                key : 'value',
+                key2 : 'value2'
+            }
+        };
         var task = job.attrs.data;
-        var url = task.notify_url;
 
+        var notify = new Notify({
+            title : task.title,
+            notify_url : task.notify_url,
+            params : task.params,
+            status : 'SUCCESS'
+        });
 
+        notify.save(function(err, notify) {
+            if (err) {
+                return Log.error('[http-notify-task]' + err);
+            }
 
+            var _params = Tool.extend({notify_id:notify._id}, notify.params);
+            var content = JSON.stringify(_params);
 
+            _httpPost(notify.notify_url,
+                notify.id,
+                content,
+                {user:task.id, pass:task.mastersecret},
+                1,
+                Config.requestConfig.retryTimes,
+                function(err) {
+                    if (err) {
+                        return Log.error('[http-notify-task]' + err + ', notify:' + JSON.stringify(notify));
+                    }
+                    done();
+                });
+
+        });
     });
 
 };
 
 
-function _httpGet(url, notify_id, auth, times, maxTryTimes, callback) {
+function _httpPost(url, notify_id, body, auth, times, maxTryTimes, callback) {
     console.log('HTTP GET - [id:%s, url:%s, times:%s/%s]', notify_id, url, times, maxTryTimes);
     var headers = {
         'User-Agent' : 'Timing Task Server',
@@ -38,21 +74,22 @@ function _httpGet(url, notify_id, auth, times, maxTryTimes, callback) {
             }
             // other connection error
             if (times < maxTryTimes) {
-                return _httpGet(url, notify_id, auth, times + 1, maxTryTimes, callback);
+                return _httpPost(url, notify_id, auth, times + 1, maxTryTimes, callback);
             } else {
                 return callback('CONNECT_TIMEOUT');
             }
         }
 
         if (res.statusCode == 200) {
-            // TODO save notify
+            return callback(null, 'success');
         } else {
-            // TODO save notify
+            return callback(res.body);
         }
     };
 
-    Request.get({
+    Request.post({
         url : url,
+        body : body,
         auth : {
             user : auth.user,
             pass : auth.pass
@@ -62,6 +99,3 @@ function _httpGet(url, notify_id, auth, times, maxTryTimes, callback) {
     }, _callback);
 
 }
-
-
-//_httpGet("http://www.baidu.com", '123', {user:'xiezefan', pass:'222222'}, 1, 3, console.log);
