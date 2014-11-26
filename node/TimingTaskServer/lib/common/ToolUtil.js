@@ -1,18 +1,3 @@
-var Date = require('./DateUtil');
-/**
- * Created by xiezefan-pc on 14-9-25.
- */
-function _getRandomString(len) {
-    len = len || 32;
-    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
-    var maxPos = $chars.length;
-    var pwd = '';
-    for (i = 0; i < len; i++) {
-        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
-    }
-    return pwd;
-}
-
 /* extend start */
 var extend,
     _extend,
@@ -20,7 +5,7 @@ var extend,
 
 _isObject = function(o){
     return Object.prototype.toString.call(o) === '[object Object]';
-}
+};
 
 _extend = function self(destination, source) {
     var property;
@@ -52,17 +37,24 @@ extend = function(){
     for (i = arr.length - 1; i >= 0; i--) {
         if (_isObject(arr[i])) {
             _extend(arr[i], result);
-        };
+        }
     }
 
     arr[0] = result;
     return result;
 };
 
-
-
-exports.formatDate = function(pattern) {
-    return new Date().format(pattern);
+var getRandomString = function(len) {
+    len = len || 32;
+    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; // 默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1
+    var maxPos = $chars.length;
+    var pwd = '';
+    for (var i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
 };
+
+
 exports.extend = extend;
-exports.randomString = _getRandomString;
+exports.rundomStr = getRandomString;

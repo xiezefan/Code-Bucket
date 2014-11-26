@@ -4,8 +4,8 @@ var config = {
     agendaConfig : {
         // mongodb 配置
         db: {
-            address: '127.0.0.1:27017/agenda-example',
-            collection: 'notifyJobs'
+            address: '127.0.0.1:27017/timing-task-server',
+            collection: 'notifyJobs5'
         },
         // 最大同时执行任务
         maxConcurrency: 20,

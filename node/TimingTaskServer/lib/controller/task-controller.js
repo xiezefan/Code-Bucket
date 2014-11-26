@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var Log = require('../log');
-var agenda = require('../agenda');
+var Agenda = require('agenda');
+var Config = require('../config');
+var Tool = require('../common/ToolUtil');
 
-
+var agenda = new Agenda(Config.agendaConfig);
 
 router.post('/', function(req, res) {
     var reqData = req.body;
@@ -16,10 +18,12 @@ router.post('/', function(req, res) {
     }
 
     registerTask({
+        id:Tool.rundomStr(24),
         title:reqData.title,
         notify_url:reqData.notify_url,
         cron:reqData.cron,
-        params:reqData.params
+        params:reqData.params,
+        masterSecret:Tool.rundomStr(24)
     }, function() {
         res.json({code:3000, content:"success"});
     })
@@ -32,7 +36,7 @@ function registerTask(task, done) {
     job.repeatEvery(task.cron);
     job.save(function(err) {
         if (err) return done(err);
-        Log.debug('Task ' + JSON.stringify(task) + ' save success.');
+        Log.debug('Task ' + task.title + ' save success.');
         if (done) return done();
     });
 }
