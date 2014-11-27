@@ -47,6 +47,7 @@ job.repeatEvery(task.cron);
 
 agenda.jobs({}, function(err, jobs) {
     async.each(jobs, function(job) {
+        console.log(job);
         console.log(job.attrs.name);
     }, function(err) {
         console.log('[http-notify-task]' + err);

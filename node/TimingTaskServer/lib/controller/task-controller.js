@@ -6,6 +6,7 @@ var Config = require('../config');
 var Tool = require('../common/ToolUtil');
 var httpNotify = require('../jobs/http-notify');
 
+
 router.post('/', function(req, res) {
     var reqData = req.body;
 
@@ -28,17 +29,34 @@ router.post('/', function(req, res) {
 
 });
 
-router.put('/:id', function(req, res) {
+router.put('/:name', function(req, res) {
     var reqData = req.body;
 
-    Log.debug('POST /task/%s %s', req.params.id, JSON.stringify(reqData));
+    Log.debug('POST /task/%s %s', req.params.name, JSON.stringify(reqData));
 
-    reqData['_id'] = req.params.id;
-
-    res.json({code:3000, content:"success"});
+    updateTask(req.params.name, reqData, function(err) {
+        if (err) {
+            res.json({code:1000, content:err});
+        } else {
+            res.json({code:3000, content:"success"});
+        }
+    });
 });
 
-function updateTask(task, done) {
+function updateTask(name, params, done) {
+    agenda.jobs({name:name}, function(err, jobs) {
+        if (err) return done(err);
+
+        if (jobs && jobs.length > 0) {
+            var job = jobs[0];
+            job.attrs.data = Tool.extend(job.attrs.data, params);
+            job.attrs.repeatInterval = params.cron;
+            agenda.saveJob(job);
+            done(err)
+        } else {
+            return done('TASK_NOT_FOUND');
+        }
+    });
 
 }
 
