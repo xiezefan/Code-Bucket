@@ -6,7 +6,7 @@ var Config = require('../config');
 var Tool = require('../common/ToolUtil');
 var httpNotify = require('../jobs/http-notify');
 
-
+// create task
 router.post('/', function(req, res) {
     var reqData = req.body;
 
@@ -29,6 +29,7 @@ router.post('/', function(req, res) {
 
 });
 
+// update task
 router.put('/:name', function(req, res) {
     var reqData = req.body;
 
@@ -36,10 +37,43 @@ router.put('/:name', function(req, res) {
 
     updateTask(req.params.name, reqData, function(err) {
         if (err) {
-            res.json({code:1000, content:err});
+            res.status(400).send(err);
         } else {
             res.json({code:3000, content:"success"});
         }
+    });
+});
+
+// pause task
+router.post('/:name/pause', function(req, res) {
+    //TODO
+});
+
+// execute task
+router.post('/:name/execute', function(req, res) {
+    Log.debug('DELETE /task/%s/execute %s', req.params.name);
+
+    agenda.jobs({name:req.params.name}, function(err, jobs) {
+        if (err) return res.status(400).send(err);
+
+        if (jobs && jobs.length > 0) {
+            var job = jobs[0];
+            agenda.now(job.attrs.name, job.attrs.data);
+            res.json({code:3000, content:"success"});
+        } else {
+            res.status(400).send('TASK_NOT_FOUND');
+        }
+    });
+
+});
+
+// delete task
+router.delete('/:name', function(req, res) {
+    Log.debug('DELETE /task/%s %s', req.params.name);
+
+    agenda.cancel({name:req.params.name}, function(err, numRemoved) {
+        if (err) res.status(400).send('Bad Request');
+        res.json({code:3000, content:"success"});
     });
 });
 
