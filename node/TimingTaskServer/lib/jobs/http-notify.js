@@ -58,6 +58,10 @@ var _httpPost = function(url, notify_id, body, auth, times, maxTryTimes, callbac
 module.exports = function(job, done) {
     var task = job.attrs.data;
 
+    if (task && task.pause) {
+        return Log.error('[http-notify-task] Task Pause : ' + JSON.stringify(task));
+    }
+
     var notify = new Notify({
         title : task.title,
         notify_url : task.notify_url,

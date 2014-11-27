@@ -46,12 +46,43 @@ router.put('/:name', function(req, res) {
 
 // pause task
 router.post('/:name/pause', function(req, res) {
-    //TODO
+    Log.debug('POST /task/%s/pause %s', req.params.name);
+
+    agenda.jobs({name:req.params.name}, function(err, jobs) {
+        if (err) return res.status(400).send(err);
+
+        if (jobs && jobs.length > 0) {
+            var job = jobs[0];
+            job.attrs.data['pause'] = true;
+            agenda.saveJob(job);
+            res.json({code:3000, content:"success"});
+        } else {
+            res.status(400).send('TASK_NOT_FOUND');
+        }
+    });
+});
+
+// run task
+router.post('/:name/run', function(req, res) {
+    Log.debug('POST /task/%s/run %s', req.params.name);
+
+    agenda.jobs({name:req.params.name}, function(err, jobs) {
+        if (err) return res.status(400).send(err);
+
+        if (jobs && jobs.length > 0) {
+            var job = jobs[0];
+            job.attrs.data['pause'] = false;
+            agenda.saveJob(job);
+            res.json({code:3000, content:"success"});
+        } else {
+            res.status(400).send('TASK_NOT_FOUND');
+        }
+    });
 });
 
 // execute task
 router.post('/:name/execute', function(req, res) {
-    Log.debug('DELETE /task/%s/execute %s', req.params.name);
+    Log.debug('POST /task/%s/execute %s', req.params.name);
 
     agenda.jobs({name:req.params.name}, function(err, jobs) {
         if (err) return res.status(400).send(err);
