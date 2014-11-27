@@ -3,7 +3,7 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var Config = require('./lib/config');
 
-var agendaUI = require('agenda-ui');
+var agendaUI = require('./lib/agenda-ui');
 var agenda = require('./lib/agenda');
 
 var taskController = require('./lib/controller/task-controller');

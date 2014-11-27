@@ -19,6 +19,7 @@
     "bunyan":"*",
     "mongodb":"*",
     "mongoose":"~3.8.19",
-    "multer":"*"
+    "multer":"*",
+    "async":"*"
   }
 }
