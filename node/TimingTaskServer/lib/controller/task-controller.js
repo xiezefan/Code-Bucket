@@ -23,19 +23,19 @@ router.post('/', function(req, res) {
         cron:reqData.cron,
         params:reqData.params,
         masterSecret:Tool.rundomStr(24)
-    }, function() {
-        res.json({code:3000, content:"success"});
+    }, function(err, task) {
+        res.json({code:3001, content:task});
     })
 
 });
 
 // update task
-router.put('/:name', function(req, res) {
+router.put('/:id', function(req, res) {
     var reqData = req.body;
 
-    Log.debug('POST /task/%s %s', req.params.name, JSON.stringify(reqData));
+    Log.debug('POST /task/%s %s', req.params.id, JSON.stringify(reqData));
 
-    updateTask(req.params.name, reqData, function(err) {
+    updateTask(req.params.id, reqData, function(err) {
         if (err) {
             res.status(400).send(err);
         } else {
@@ -45,10 +45,10 @@ router.put('/:name', function(req, res) {
 });
 
 // pause task
-router.post('/:name/pause', function(req, res) {
-    Log.debug('POST /task/%s/pause %s', req.params.name);
+router.post('/:id/pause', function(req, res) {
+    Log.debug('POST /task/%s/pause %s', req.params.id);
 
-    agenda.jobs({name:req.params.name}, function(err, jobs) {
+    agenda.jobs({name:'http-notify-' + req.params.id}, function(err, jobs) {
         if (err) return res.status(400).send(err);
 
         if (jobs && jobs.length > 0) {
@@ -63,10 +63,10 @@ router.post('/:name/pause', function(req, res) {
 });
 
 // run task
-router.post('/:name/run', function(req, res) {
-    Log.debug('POST /task/%s/run %s', req.params.name);
+router.post('/:id/run', function(req, res) {
+    Log.debug('POST /task/%s/run %s', req.params.id);
 
-    agenda.jobs({name:req.params.name}, function(err, jobs) {
+    agenda.jobs({name:'http-notify-' + req.params.id}, function(err, jobs) {
         if (err) return res.status(400).send(err);
 
         if (jobs && jobs.length > 0) {
@@ -81,10 +81,10 @@ router.post('/:name/run', function(req, res) {
 });
 
 // execute task
-router.post('/:name/execute', function(req, res) {
-    Log.debug('POST /task/%s/execute %s', req.params.name);
+router.post('/:id/execute', function(req, res) {
+    Log.debug('POST /task/%s/execute %s', req.params.id);
 
-    agenda.jobs({name:req.params.name}, function(err, jobs) {
+    agenda.jobs({name:'http-notify-' + req.params.id}, function(err, jobs) {
         if (err) return res.status(400).send(err);
 
         if (jobs && jobs.length > 0) {
@@ -99,17 +99,17 @@ router.post('/:name/execute', function(req, res) {
 });
 
 // delete task
-router.delete('/:name', function(req, res) {
-    Log.debug('DELETE /task/%s %s', req.params.name);
+router.delete('/:id', function(req, res) {
+    Log.debug('DELETE /task/%s %s', req.params.id);
 
-    agenda.cancel({name:req.params.name}, function(err, numRemoved) {
+    agenda.cancel({name:'http-notify-' + req.params.id}, function(err, numRemoved) {
         if (err) res.status(400).send('Bad Request');
         res.json({code:3000, content:"success"});
     });
 });
 
-function updateTask(name, params, done) {
-    agenda.jobs({name:name}, function(err, jobs) {
+function updateTask(id, params, done) {
+    agenda.jobs({name:'http-notify-' + id}, function(err, jobs) {
         if (err) return done(err);
 
         if (jobs && jobs.length > 0) {
@@ -133,7 +133,7 @@ function registerTask(task, done) {
     job.save(function(err) {
         if (err) return done(err);
         Log.debug('Task ' + task.title + ' save success.');
-        done(err);
+        done(err, task);
     });
 
     agenda.define('http-notify-' + task.id, httpNotify);
