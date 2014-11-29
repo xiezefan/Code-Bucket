@@ -19,6 +19,5 @@ app.use('/task/', taskController);
 app.use('/agenda-ui', agendaUI(agenda, {poll: 10000}));
 
 
-
 app.listen(Config.serverConfig.port);
 console.log('Express server listening on port 3000');

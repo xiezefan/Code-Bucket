@@ -3,8 +3,10 @@ package com.xiezefan.segmentfault.app;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import com.xiezefan.segmentfault.app.adapter.AnswerListAdapter;
 
 /**
@@ -14,6 +16,10 @@ public class ProblemActivity extends Activity {
     private static final String TAG = ProblemActivity.class.getSimpleName();
 
     private ListView mAnswerList;
+    private ScrollView mScrollView;
+
+    private Handler mHandler = new Handler();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +33,17 @@ public class ProblemActivity extends Activity {
 
         this.mAnswerList = (ListView) findViewById(R.id.answer_list);
         mAnswerList.setAdapter(new AnswerListAdapter(this));
+
+        this.mScrollView = (ScrollView) findViewById(R.id.scroll_view);
+
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mScrollView.fullScroll(ScrollView.FOCUS_UP);
+            }
+        });
+
+
     }
 
 
