@@ -56,9 +56,10 @@ for (var i=0; i<data.length; i++) {
 now = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
 console.log(now)*/
 
-
+/*
 Festival.find({offset:36}, function(err, festivals) {
     var festival = festivals[0];
     festival.offset = 6;
     festival.save(console.log);
 });
+*/

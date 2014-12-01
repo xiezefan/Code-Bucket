@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var log = require('../log/index')('Festival Factory');
 var async = require('async');
+var later = require('later');
 
 var PushClient = require('../push');
 var Service = require('../service');
@@ -21,15 +22,17 @@ router.post('/', function(req, res) {
                 });
                 break;
             case 'ACTION_CLIENT_SERVICE_CREATE':
-                Service.find({sid:reqData.sid}, function(err, service) {
+                Service.find({sid:reqData.sid}, function(err, services) {
                     if (err) log.error(err);
-                    if (!service) log.error('Service %s not found', reqData.sid);
-
-                    service.cid = reqData.cid;
-                    service.save(function(err) {
-                        if (err) log.error(err);
-                    });
-
+                    if (services && services.length > 0) {
+                        var service = services[0];
+                        service.cid = reqData.cid;
+                        service.save(function(err) {
+                            if (err) log.error(err);
+                        });
+                    } else {
+                        log.error('Service %s not found', reqData.sid);
+                    }
                 });
                 break;
             default :
@@ -44,6 +47,32 @@ router.get('/notify', function(req, res) {
     var reqData = req.body;
     log.debug('POST /festival/notify ' + JSON.stringify(reqData));
 
+    notify();
+
+    res.json({code:3000, content:'success'});
+});
+
+
+// 计算给定日期距离 2014-12-1 号多少天, 注:2014-12-1 距离 2014-12-1 为 1天
+var mouthLength = [31,31,28,31,30,31,30,31,31,30,31,30,31];
+function buildOffset(date) {
+    var dateArr = date.split('-');
+
+    if (dateArr[0] == '2014') {
+        return parseInt(dateArr[2]);
+    }
+
+    var offset = mouthLength[0];
+    for (var i=1; i<parseInt(dateArr[1]); i++) {
+        offset += mouthLength[i];
+    }
+
+    offset += parseInt(dateArr[2]);
+    return offset;
+}
+
+// 提醒逻辑
+function notify() {
     var now = new Date();
     now = now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate();
     var offset = buildOffset(now);
@@ -96,29 +125,19 @@ router.get('/notify', function(req, res) {
             if (err) return log.error(err);
         })
     });
-
-
-
-    res.json({code:3000, content:'success'});
-});
-
-// 计算给定日期距离 2014-12-1 号多少天, 注:2014-12-1 距离 2014-12-1 为 1天
-var mouthLength = [31,31,28,31,30,31,30,31,31,30,31,30,31];
-function buildOffset(date) {
-    var dateArr = date.split('-');
-
-    if (dateArr[0] == '2014') {
-        return parseInt(dateArr[2]);
-    }
-
-    var offset = mouthLength[0];
-    for (var i=1; i<parseInt(dateArr[1]); i++) {
-        offset += mouthLength[i];
-    }
-
-    offset += parseInt(dateArr[2]);
-    return offset;
 }
 
+
+
+// 初始化定时器
+later.date.localTime();
+// 每天早上定时提醒
+var schedule = later.parse.recur().on('10:00:00').time();
+later.setInterval(function() {
+    log.debug('Festival Notify Factory Execute...');
+    notify();
+}, schedule);
+
+log.debug('Festival Notify Factory Running...');
 
 module.exports = router;
