@@ -9,6 +9,8 @@ var config = {
     },
     log : {
         savePath : '/home/xiezefan-pc/code/xiezefan/Code-Bucket/node/Spider-Factory/logs/spider-factory.log'
+        //savePath : '/home/xiezf/node/Ding-factory/logs/spider-factory.log'
+
     }
 };
 
