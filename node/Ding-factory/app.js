@@ -12,6 +12,7 @@ var routes = require('./routes/index');
 var douban = require('./routes/douban');
 var next = require('./routes/next');
 var festival = require('./lib/festival');
+var simple_subscrible = require('./lib/simple_subscribe');
 
 
 var later = require('later');
@@ -59,6 +60,7 @@ app.use('/novel', routes);
 app.use('/douban/', douban);
 app.use('/next/', next);
 app.use('/festival/', festival);
+app.use('/simple', simple_subscrible);
 
 // catch 404 and forward
 // to error handler
