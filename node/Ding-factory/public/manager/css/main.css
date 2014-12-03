@@ -1,0 +1,54 @@
+html,body,ul,li{
+    width:100%;
+    height:100%;
+    margin: 0;
+    padding: 0;
+}
+
+.m-layout {
+    width:100%;
+    height:100%;
+}
+
+
+/*----header style----*/
+.m-header {
+    height: 60px;
+    text-align: center;
+}
+
+/*----left menu bar style----*/
+.m-menu {
+    width: 15%;
+}
+
+.m-menu .m-accordion ul {
+    overflow-x: hidden;
+}
+
+.m-menu .m-accordion li {
+    height: 20px;
+    list-style-type: none;
+    padding-left:20px;
+    padding-top:5px;
+    border-bottom: 1px solid silver;
+}
+
+.m-menu .m-accordion li a {
+    width: 100%;
+    height: 100%;
+    display: block;
+    color: #808080;
+    text-decoration: none;
+}
+
+.m-menu .m-accordion li:hover {
+    background-color: #EEEEEE;
+}
+
+/*----main style----*/
+.m-main {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}

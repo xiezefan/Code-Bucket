@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Ding Factory Admin</title>
+
+    <link rel="stylesheet" type="text/css" href="easy-ui/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" type="text/css" href="easy-ui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+
+    <script type="text/javascript" src="easy-ui/jquery.min.js"></script>
+    <script type="text/javascript" src="easy-ui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="easy-ui/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+    <div class="easyui-layout m-layout">
+        <div class="m-header" data-options="region:'north'">
+            <h2>Ding Factory Manager Admin</h2>
+        </div>
+        <div class="m-menu" data-options="region:'west'" title="菜单">
+            <div class="easyui-accordion m-accordion">
+                <div title="定时任务管理">
+                    <ul>
+                        <li><a href="#">创建定时服务</a></li>
+                        <li><a href="#">管理定时服务</a></li>
+                    </ul>
+                </div>
+
+                <div title="定时服务管理">
+                    <ul>
+                        <li><a href="#">创建定时推送任务</a></li>
+                        <li><a href="#">创建定时推送服务</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="m-main" data-options="region:'center'" title="Main">
+            <iframe src="main.html" id="wg_main" frameborder="0" style="height: 100%; width: 100%">
+            </iframe>
+        </div>
+    </div>
+</body>
+</html>
