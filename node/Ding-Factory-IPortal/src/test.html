@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Angular Test</title>
     <script type="text/javascript" src="framework/angular/angular.min.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/test.js"></script>
 </head>
 <body ng-init="email='xiezefan@126.com'">
     <h3>{{email}}</h3>
@@ -46,6 +46,25 @@
     <div ng-controller="showController">
         <button ng-click="toggle()">Toggle</button>
         <div style="background:red" ng-show="show">Text</div>
+    </div>
+
+    <br/>
+
+    <ul>
+        <li ng-repeat="user in roommaters">name: {{user.name}}, age: {{user.age}}</li>
+    </ul>
+
+    <ul>
+        <li ng-repeat="(key, value) in info">{{key}}:{{value}}</li>
+    </ul>
+
+    <hello></hello>
+
+    <br/>
+
+    <div ng-controller="githubController">
+        <input id="username" type="text" ng-model="username" placeholder="You Github Username"/>
+        <div>{{data}}</div>
     </div>
 
 </body>

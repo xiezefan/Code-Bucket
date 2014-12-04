@@ -1,0 +1,29 @@
+<div class="easyui-layout m-layout">
+    <div class="m-header" data-options="region:'north'">
+        <h2>Ding Factory Manager Admin</h2>
+    </div>
+    <div class="m-menu" data-options="region:'west'" title="菜单">
+        <div class="easyui-accordion m-accordion">
+            <div title="定时任务管理">
+                <ul>
+                    <li><a href="#/simple-service/add">创建定时服务</a></li>
+                    <li><a href="#/simple-service">管理定时服务</a></li>
+                </ul>
+            </div>
+
+            <div title="定时服务管理">
+                <ul>
+                    <li><a href="#">创建定时推送任务</a></li>
+                    <li><a href="#">创建定时推送服务</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="m-main" data-options="region:'center'" title="欢迎页面" ui-view="main"></div>
+</div>
+
+<script type="text/javascript-lazy">
+    $.parser.parse();
+</script>
+
+
